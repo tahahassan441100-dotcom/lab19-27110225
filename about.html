@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFF8EC">
+  <meta name="description" content="Meet the home baker behind Crumb & Cardamom and learn how each small batch is made.">
+  <title>Our Story | Crumb &amp; Cardamom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --cream: #FFF8EC;
+      --green: #3E6B4F;
+      --saffron: #E8A33D;
+      --brown: #2B2118;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "Poppins", sans-serif;
+      --content: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background-color: var(--cream);
+      background-image: radial-gradient(var(--saffron) 0.65px, transparent 0.65px);
+      background-size: 24px 24px;
+      color: var(--brown);
+      font-family: var(--sans);
+      line-height: 1.7;
+    }
+    a { color: inherit; }
+    .container { width: min(var(--content), calc(100% - 48px)); margin-inline: auto; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { color: var(--green); font-family: var(--serif); font-weight: 600; line-height: 1.15; }
+    h2 { margin-bottom: 12px; font-size: clamp(2rem, 4vw, 3rem); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--green);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 25px; height: 2px; background: var(--saffron); content: ""; }
+    .site-header { position: sticky; z-index: 5; top: 0; border-bottom: 1px solid rgb(62 107 79 / 15%); background: rgb(255 248 236 / 94%); backdrop-filter: blur(12px); }
+    .nav-row { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--green); font-family: var(--serif); font-size: 1.18rem; font-weight: 700; text-decoration: none; }
+    .brand-mark { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid rgb(62 107 79 / 25%); border-radius: 50%; background: var(--cream); font-family: var(--sans); font-size: 1.08rem; }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { color: var(--brown); font-size: 0.88rem; font-weight: 500; text-decoration: none; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--green); text-decoration: underline; text-decoration-color: var(--saffron); text-underline-offset: 5px; }
+    .nav-links .nav-order { padding: 10px 18px; border-radius: 3px; background: var(--green); color: var(--cream); }
+    .nav-links .nav-order:hover, .nav-links .nav-order:focus-visible { background: var(--brown); color: var(--cream); text-decoration: none; }
+    .brand:focus-visible, .nav-links a:focus-visible, .button:focus-visible { outline: 3px solid var(--saffron); outline-offset: 4px; }
+
+    .page-hero { padding: 83px 0 78px; border-bottom: 1px solid rgb(62 107 79 / 17%); }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: center; gap: 55px; }
+    .page-hero h1 { max-width: 650px; margin: 15px 0 20px; font-size: clamp(3rem, 6vw, 5rem); letter-spacing: 0; }
+    .page-hero h1 span { color: var(--brown); }
+    .hero-copy p { max-width: 600px; margin-bottom: 0; font-size: 1.03rem; }
+    .hero-art { position: relative; display: grid; min-height: 310px; place-items: center; }
+    .hero-ring { position: absolute; width: min(100%, 300px); aspect-ratio: 1; border: 1px solid rgb(62 107 79 / 30%); border-radius: 50%; }
+    .hero-ring::before, .hero-ring::after { position: absolute; border: 1px solid rgb(232 163 61 / 60%); border-radius: 50%; content: ""; }
+    .hero-ring::before { inset: 18px; }
+    .hero-ring::after { inset: 37px; }
+    .hero-emoji { position: relative; z-index: 1; display: grid; width: 170px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: var(--saffron); box-shadow: 0 13px 0 rgb(62 107 79 / 18%); font-size: 5.2rem; transform: rotate(-8deg); }
+
+    .story-section { padding: 76px 0 82px; }
+    .story-copy { max-width: 800px; }
+    .story-copy h2 { margin-top: 12px; }
+    .story-copy p { margin-bottom: 0; font-size: 1rem; }
+    .values-section { padding: 68px 0 82px; border-top: 1px solid rgb(62 107 79 / 17%); border-bottom: 1px solid rgb(62 107 79 / 17%); background: rgb(232 163 61 / 8%); }
+    .section-intro { max-width: 600px; margin-bottom: 30px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .value-card { min-height: 190px; padding: 22px; border: 1px solid rgb(62 107 79 / 19%); border-radius: 4px; background: var(--cream); }
+    .value-emoji { display: block; margin-bottom: 13px; font-size: 1.8rem; }
+    .value-card h3 { margin-bottom: 8px; color: var(--brown); font-family: var(--sans); font-size: 1rem; font-weight: 600; }
+    .value-card p { margin-bottom: 0; font-size: 0.88rem; }
+
+    .schedule-section { padding: 78px 0 86px; }
+    .schedule-layout { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 60px; align-items: start; }
+    .schedule-intro p { max-width: 340px; margin-bottom: 0; }
+    .schedule-list { margin: 0; padding: 0; list-style: none; }
+    .schedule-list li { display: grid; grid-template-columns: 155px 1fr; gap: 20px; padding: 15px 0; border-bottom: 1px solid rgb(62 107 79 / 20%); }
+    .schedule-list li:first-child { border-top: 1px solid rgb(62 107 79 / 20%); }
+    .schedule-list strong { color: var(--green); font-size: 0.9rem; }
+    .schedule-list span { font-size: 0.9rem; }
+    .order-cta { padding: 34px 0; border-top: 1px solid rgb(62 107 79 / 17%); background: rgb(62 107 79 / 6%); }
+    .cta-row { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .cta-row p { margin: 0; color: var(--green); font-family: var(--serif); font-size: 1.45rem; }
+    .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 10px; padding: 12px 21px; border: 0; border-radius: 3px; background: var(--green); color: var(--cream); font-family: var(--sans); font-weight: 600; text-decoration: none; transition: transform 160ms ease, background-color 160ms ease; }
+    .button:hover { transform: translateY(-2px); background: var(--brown); }
+    .site-footer { padding: 28px 0; background: var(--green); color: var(--cream); }
+    .footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; }
+    .footer-brand { color: var(--cream); font-family: var(--serif); font-size: 1.12rem; font-weight: 600; }
+    .footer-contact { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.79rem; }
+    .footer-contact a { text-decoration-color: var(--saffron); text-underline-offset: 3px; }
+    .footer-contact p { margin: 0; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
+    @media (max-width: 760px) {
+      .container { width: min(var(--content), calc(100% - 34px)); }
+      .nav-row { min-height: 68px; gap: 12px; }
+      .brand { gap: 7px; font-size: 1rem; }
+      .brand-mark { width: 32px; height: 32px; }
+      .nav-links { gap: 15px; }
+      .nav-links a { font-size: 0.8rem; }
+      .nav-links .nav-order { padding: 8px 11px; }
+      .page-hero { padding: 58px 0 45px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 12px; }
+      .page-hero h1 { font-size: clamp(3rem, 11vw, 4.6rem); }
+      .hero-art { min-height: 265px; }
+      .hero-ring { width: 245px; }
+      .hero-emoji { width: 145px; font-size: 4.5rem; }
+      .story-section, .schedule-section { padding: 60px 0; }
+      .values-section { padding: 58px 0 64px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .value-card { min-height: 0; }
+      .schedule-layout { grid-template-columns: 1fr; gap: 24px; }
+    }
+    @media (max-width: 430px) {
+      .container { width: calc(100% - 28px); }
+      .nav-links { gap: 11px; }
+      .nav-links .nav-order { padding-inline: 9px; }
+      .schedule-list li { grid-template-columns: 1fr; gap: 2px; }
+      .cta-row { align-items: flex-start; flex-direction: column; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav-row" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="Crumb & Cardamom home">
+        <span class="brand-mark" aria-hidden="true">🌿</span>
+        <span>Crumb &amp; Cardamom</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a class="nav-order" href="index.html#order">Order now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">A home kitchen, a happy beginning</span>
+          <h1 id="page-title">A little cake. <span>A lot of heart.</span></h1>
+          <p>Crumb &amp; Cardamom began with one home baker, a favourite family recipe and the warm scent of cardamom in the kitchen.</p>
+        </div>
+        <div class="hero-art" role="img" aria-label="A cardamom-spiced cake baked at home">
+          <div class="hero-ring" aria-hidden="true"></div>
+          <span class="hero-emoji" aria-hidden="true">🍰</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="story-title">
+      <div class="container story-copy">
+        <span class="eyebrow">How it all started</span>
+        <h2 id="story-title">From our kitchen to your table.</h2>
+        <p>Our baker started making cardamom-spiced cakes at home and sharing them with friends and family. Soon, those first slices led to requests for birthdays, gatherings and just-because days. What began as a few cakes for the people closest to us grew into Crumb &amp; Cardamom: a small home bakery making thoughtful treats by hand, one batch at a time.</p>
+      </div>
+    </section>
+
+    <section class="values-section" aria-labelledby="values-title">
+      <div class="container">
+        <span class="eyebrow">The good things matter</span>
+        <h2 id="values-title">Baked our way</h2>
+        <p class="section-intro">A few simple things guide every bake that leaves our kitchen.</p>
+        <div class="values-grid">
+          <article class="value-card">
+            <span class="value-emoji" aria-hidden="true">🥣</span>
+            <h3>Small batches</h3>
+            <p>We bake a little at a time, with care in every bowl.</p>
+          </article>
+          <article class="value-card">
+            <span class="value-emoji" aria-hidden="true">🌿</span>
+            <h3>Real ingredients</h3>
+            <p>Good ingredients and warm spices make every bite count.</p>
+          </article>
+          <article class="value-card">
+            <span class="value-emoji" aria-hidden="true">🧁</span>
+            <h3>Baked to order</h3>
+            <p>Your treats are made fresh for the day you choose.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="schedule-section" aria-labelledby="schedule-title">
+      <div class="container schedule-layout">
+        <div class="schedule-intro">
+          <span class="eyebrow">A week in our kitchen</span>
+          <h2 id="schedule-title">Our baking schedule</h2>
+          <p>We plan each week around fresh ingredients and your orders. Send us your preferred delivery date and we’ll confirm what we can bake.</p>
+        </div>
+        <ul class="schedule-list">
+          <li><strong>Monday &amp; Tuesday</strong><span>Plan the week and prep cake orders.</span></li>
+          <li><strong>Wednesday &amp; Thursday</strong><span>Bake cakes, cookies and cinnamon rolls.</span></li>
+          <li><strong>Friday</strong><span>Make desserts and finish weekend orders.</span></li>
+          <li><strong>Saturday</strong><span>Pack up fresh bakes for delivery or pickup.</span></li>
+          <li><strong>Sunday</strong><span>A little rest before the next batch.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="order-cta" aria-label="Order from Crumb & Cardamom">
+      <div class="container cta-row">
+        <p>Got a treat in mind? Let’s bake it.</p>
+        <a class="button" href="index.html#order">Order now <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span class="footer-brand">Crumb &amp; Cardamom</span>
+      <div class="footer-contact">
+        <a href="mailto:hello@crumbandcardamom.com">hello@crumbandcardamom.com</a>
+        <p>© 2026 Crumb &amp; Cardamom</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
