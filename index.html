@@ -147,9 +147,22 @@
     .field input:focus, .field select:focus { outline: 2px solid var(--saffron); outline-offset: 2px; }
     .field input::placeholder { color: var(--brown); }
     .field small { font-size: 0.73rem; }
+    .field-error { margin: 0; color: var(--brown); font-size: 0.76rem; font-weight: 500; line-height: 1.45; }
+    .field-error:empty { display: none; }
+    .field-error:not(:empty) { padding-left: 9px; border-left: 2px solid var(--saffron); }
     .form-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 4px; }
     .form-footer .button { cursor: pointer; }
     .form-message { min-height: 1.5em; margin: 0; color: var(--green); font-size: 0.9rem; font-weight: 600; }
+
+    .faq-section { position: relative; padding: 72px 0 82px; border-top: 1px solid rgb(62 107 79 / 17%); }
+    .faq-section::before { position: absolute; top: 0; left: 50%; width: 46px; height: 3px; background: var(--saffron); content: ""; transform: translateX(-50%); }
+    .faq-list { max-width: 850px; margin-top: 28px; }
+    .faq-item { padding: 17px 0; border-top: 1px solid rgb(62 107 79 / 22%); }
+    .faq-item:last-child { border-bottom: 1px solid rgb(62 107 79 / 22%); }
+    .faq-item summary { color: var(--green); font-weight: 600; cursor: pointer; }
+    .faq-item summary::marker { color: var(--saffron); }
+    .faq-item summary:focus-visible { outline: 2px solid var(--saffron); outline-offset: 4px; }
+    .faq-item p { max-width: 760px; margin: 12px 0 0; color: var(--brown); font-size: 0.9rem; }
 
     .site-footer { padding: 28px 0; background: var(--green); color: var(--cream); }
     .footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; }
@@ -334,19 +347,21 @@
           <p>Choose your treat and tell us when you’d like it. We’ll be in touch to confirm your order.</p>
           <p class="order-aside-note">Something mazedaar is on its way.</p>
         </div>
-        <form class="order-form" id="order-form">
+        <form class="order-form" id="order-form" novalidate>
           <div class="field">
             <label for="customer-name">Your name</label>
-            <input id="customer-name" name="name" type="text" autocomplete="name" required>
+            <input id="customer-name" name="name" type="text" autocomplete="name" aria-describedby="customer-name-error" required>
+            <small class="field-error" id="customer-name-error" aria-live="polite"></small>
           </div>
           <div class="field">
             <label for="customer-phone">Phone number</label>
-            <input id="customer-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9]{11}" maxlength="11" aria-describedby="phone-hint" required>
+            <input id="customer-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9]{11}" maxlength="11" aria-describedby="phone-hint customer-phone-error" required>
             <small id="phone-hint">Please enter 11 digits.</small>
+            <small class="field-error" id="customer-phone-error" aria-live="polite"></small>
           </div>
           <div class="field full">
             <label for="order-item">Choose a treat</label>
-            <select id="order-item" name="item" required>
+            <select id="order-item" name="item" aria-describedby="order-item-error" required>
               <option value="" selected disabled>Select from our menu</option>
               <option>Pistachio Cardamom Cake</option>
               <option>Chocolate Fudge Cake</option>
@@ -357,20 +372,48 @@
               <option>Mango Cheesecake Jar</option>
               <option>Gulab Jamun Tiramisu Cup</option>
             </select>
+            <small class="field-error" id="order-item-error" aria-live="polite"></small>
           </div>
           <div class="field">
             <label for="order-quantity">Quantity</label>
-            <input id="order-quantity" name="quantity" type="number" min="1" step="1" value="1" required>
+            <input id="order-quantity" name="quantity" type="number" min="1" step="1" value="1" aria-describedby="order-quantity-error" required>
+            <small class="field-error" id="order-quantity-error" aria-live="polite"></small>
           </div>
           <div class="field">
             <label for="delivery-date">Delivery date</label>
-            <input id="delivery-date" name="deliveryDate" type="date" required>
+            <input id="delivery-date" name="deliveryDate" type="date" aria-describedby="delivery-date-error" required>
+            <small class="field-error" id="delivery-date-error" aria-live="polite"></small>
           </div>
           <div class="form-footer">
             <button class="button" type="submit">Place your order <span aria-hidden="true">→</span></button>
           </div>
           <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
         </form>
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="container">
+        <span class="eyebrow">A few helpful details</span>
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>How does delivery work?</summary>
+            <p>Choose your preferred date in the order form. We’ll contact you to confirm availability and arrange the details.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can you cater to allergies?</summary>
+            <p>Please email us about any allergies before ordering. We’ll discuss the ingredients and let you know what we can safely prepare.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I request a custom cake?</summary>
+            <p>We love hearing your ideas. Email us with the occasion, flavour and date, and we’ll let you know what we can make.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do I pay?</summary>
+            <p>We’ll share payment details when we confirm your order. Please wait for confirmation before sending payment.</p>
+          </details>
+        </div>
       </div>
     </section>
   </main>
@@ -389,16 +432,16 @@
     const menuToggle = document.querySelector("#menu-toggle");
     const primaryNav = document.querySelector("#primary-nav");
     const orderForm = document.querySelector("#order-form");
+    const customerNameInput = document.querySelector("#customer-name");
     const phoneInput = document.querySelector("#customer-phone");
+    const orderItem = document.querySelector("#order-item");
+    const orderQuantity = document.querySelector("#order-quantity");
     const deliveryDateInput = document.querySelector("#delivery-date");
     const formMessage = document.querySelector("#form-message");
     const calculatorItem = document.querySelector("#calculator-item");
     const calculatorQuantity = document.querySelector("#calculator-quantity");
     const calculatorTotal = document.querySelector("#calculator-total");
     const calculatorUse = document.querySelector("#calculator-use");
-    const orderItem = document.querySelector("#order-item");
-    const orderQuantity = document.querySelector("#order-quantity");
-
     function closeMenu() {
       menuToggle.setAttribute("aria-expanded", "false");
       primaryNav.classList.remove("is-open");
@@ -419,6 +462,45 @@
       .toISOString()
       .slice(0, 10);
     deliveryDateInput.min = localToday;
+
+    let orderAttempted = false;
+
+    function setFieldError(input, errorId, message) {
+      document.querySelector(`#${errorId}`).textContent = message;
+      if (message) {
+        input.setAttribute("aria-invalid", "true");
+      } else {
+        input.removeAttribute("aria-invalid");
+      }
+      return !message;
+    }
+
+    function validateOrder() {
+      const quantity = Number(orderQuantity.value);
+      const deliveryDate = deliveryDateInput.value;
+      const valid = [
+        setFieldError(customerNameInput, "customer-name-error", customerNameInput.value.trim() ? "" : "Please enter your name."),
+        setFieldError(phoneInput, "customer-phone-error", /^[0-9]{11}$/.test(phoneInput.value) ? "" : "Please enter exactly 11 digits."),
+        setFieldError(orderItem, "order-item-error", orderItem.value ? "" : "Please choose a treat."),
+        setFieldError(orderQuantity, "order-quantity-error", Number.isSafeInteger(quantity) && quantity > 0 ? "" : "Please enter a whole quantity of 1 or more."),
+        setFieldError(deliveryDateInput, "delivery-date-error", deliveryDate && deliveryDate >= localToday ? "" : "Please choose today or a later date.")
+      ].every(Boolean);
+
+      if (!valid) {
+        const firstInvalid = [customerNameInput, phoneInput, orderItem, orderQuantity, deliveryDateInput]
+          .find((input) => input.getAttribute("aria-invalid") === "true");
+        firstInvalid.focus();
+      }
+      return valid;
+    }
+
+    [customerNameInput, phoneInput, orderItem, orderQuantity, deliveryDateInput].forEach((input) => {
+      ["input", "change"].forEach((eventName) => {
+        input.addEventListener(eventName, () => {
+          if (orderAttempted) validateOrder();
+        });
+      });
+    });
 
     function updateOrderTotal() {
       const selectedOption = calculatorItem.selectedOptions[0];
@@ -452,23 +534,20 @@
       orderForm.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    phoneInput.addEventListener("input", () => {
-      phoneInput.setCustomValidity(
-        /^[0-9]{11}$/.test(phoneInput.value) ? "" : "Please enter exactly 11 digits."
-      );
-    });
-
     orderForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      phoneInput.setCustomValidity(
-        /^[0-9]{11}$/.test(phoneInput.value) ? "" : "Please enter exactly 11 digits."
-      );
-      if (!orderForm.reportValidity()) return;
+      orderAttempted = true;
+      formMessage.textContent = "";
+      if (!validateOrder()) return;
 
-      const customerName = orderForm.elements.name.value.trim();
+      const customerName = customerNameInput.value.trim();
       formMessage.textContent = `Thank you, ${customerName}! Your order request is in. We’ll be in touch soon.`;
       orderForm.reset();
       deliveryDateInput.min = localToday;
+      orderAttempted = false;
+      [customerNameInput, phoneInput, orderItem, orderQuantity, deliveryDateInput].forEach((input) => {
+        setFieldError(input, `${input.id}-error`, "");
+      });
     });
   </script>
 </body>
