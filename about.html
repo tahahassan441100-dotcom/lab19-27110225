@@ -49,9 +49,12 @@
     }
     .eyebrow::before { width: 25px; height: 2px; background: var(--saffron); content: ""; }
     .site-header { position: sticky; z-index: 5; top: 0; border-bottom: 1px solid rgb(62 107 79 / 15%); background: rgb(255 248 236 / 94%); backdrop-filter: blur(12px); }
-    .nav-row { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; }
+    .nav-row { position: relative; display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--green); font-family: var(--serif); font-size: 1.18rem; font-weight: 700; text-decoration: none; }
     .brand-mark { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid rgb(62 107 79 / 25%); border-radius: 50%; background: var(--cream); font-family: var(--sans); font-size: 1.08rem; }
+    .menu-toggle { display: none; min-height: 42px; align-items: center; gap: 8px; padding: 8px 11px; border: 1px solid var(--green); border-radius: 3px; background: var(--cream); color: var(--green); font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .menu-icon { position: relative; display: inline-block; width: 17px; height: 12px; border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+    .menu-icon::before { position: absolute; top: 3px; right: 0; left: 0; border-top: 2px solid currentColor; content: ""; }
     .nav-links { display: flex; align-items: center; gap: 30px; }
     .nav-links a { color: var(--brown); font-size: 0.88rem; font-weight: 500; text-decoration: none; }
     .nav-links a:hover, .nav-links a:focus-visible { color: var(--green); text-decoration: underline; text-decoration-color: var(--saffron); text-underline-offset: 5px; }
@@ -71,19 +74,20 @@
     .hero-ring::after { inset: 37px; }
     .hero-emoji { position: relative; z-index: 1; display: grid; width: 170px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: var(--saffron); box-shadow: 0 13px 0 rgb(62 107 79 / 18%); font-size: 5.2rem; transform: rotate(-8deg); }
 
-    .story-section { padding: 76px 0 82px; }
+    .story-section { position: relative; padding: 76px 0 82px; }
     .story-copy { max-width: 800px; }
     .story-copy h2 { margin-top: 12px; }
     .story-copy p { margin-bottom: 0; font-size: 1rem; }
-    .values-section { padding: 68px 0 82px; border-top: 1px solid rgb(62 107 79 / 17%); border-bottom: 1px solid rgb(62 107 79 / 17%); background: rgb(232 163 61 / 8%); }
+    .values-section { position: relative; padding: 68px 0 82px; border-top: 1px solid rgb(62 107 79 / 17%); border-bottom: 1px solid rgb(62 107 79 / 17%); background: rgb(232 163 61 / 8%); }
     .section-intro { max-width: 600px; margin-bottom: 30px; }
     .values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .value-card { min-height: 190px; padding: 22px; border: 1px solid rgb(62 107 79 / 19%); border-radius: 4px; background: var(--cream); }
+    .value-card { min-height: 190px; padding: 22px; border: 1px solid rgb(62 107 79 / 19%); border-radius: 4px; background: var(--cream); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+    .value-card:hover, .value-card:focus-within { transform: translateY(-4px); border-color: var(--saffron); box-shadow: 0 8px 18px rgb(43 33 24 / 10%); }
     .value-emoji { display: block; margin-bottom: 13px; font-size: 1.8rem; }
     .value-card h3 { margin-bottom: 8px; color: var(--brown); font-family: var(--sans); font-size: 1rem; font-weight: 600; }
     .value-card p { margin-bottom: 0; font-size: 0.88rem; }
 
-    .schedule-section { padding: 78px 0 86px; }
+    .schedule-section { position: relative; padding: 78px 0 86px; }
     .schedule-layout { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 60px; align-items: start; }
     .schedule-intro p { max-width: 340px; margin-bottom: 0; }
     .schedule-list { margin: 0; padding: 0; list-style: none; }
@@ -91,7 +95,7 @@
     .schedule-list li:first-child { border-top: 1px solid rgb(62 107 79 / 20%); }
     .schedule-list strong { color: var(--green); font-size: 0.9rem; }
     .schedule-list span { font-size: 0.9rem; }
-    .order-cta { padding: 34px 0; border-top: 1px solid rgb(62 107 79 / 17%); background: rgb(62 107 79 / 6%); }
+    .order-cta { position: relative; padding: 34px 0; border-top: 1px solid rgb(62 107 79 / 17%); background: rgb(62 107 79 / 6%); }
     .cta-row { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
     .cta-row p { margin: 0; color: var(--green); font-family: var(--serif); font-size: 1.45rem; }
     .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 10px; padding: 12px 21px; border: 0; border-radius: 3px; background: var(--green); color: var(--cream); font-family: var(--sans); font-weight: 600; text-decoration: none; transition: transform 160ms ease, background-color 160ms ease; }
@@ -102,15 +106,20 @@
     .footer-contact { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.79rem; }
     .footer-contact a { text-decoration-color: var(--saffron); text-underline-offset: 3px; }
     .footer-contact p { margin: 0; }
+    .story-section::before, .values-section::before, .schedule-section::before, .order-cta::before { position: absolute; z-index: 1; top: 0; left: 50%; width: 46px; height: 3px; background: var(--saffron); content: ""; transform: translateX(-50%); }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
     @media (max-width: 760px) {
       .container { width: min(var(--content), calc(100% - 34px)); }
       .nav-row { min-height: 68px; gap: 12px; }
       .brand { gap: 7px; font-size: 1rem; }
       .brand-mark { width: 32px; height: 32px; }
-      .nav-links { gap: 15px; }
+      .menu-toggle { display: inline-flex; }
+      .menu-toggle:focus-visible { outline: 3px solid var(--saffron); outline-offset: 3px; }
+      .nav-links { position: absolute; top: calc(100% - 1px); right: 0; left: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 14px 14px; border: 1px solid rgb(62 107 79 / 20%); border-top: 0; background: var(--cream); box-shadow: 0 10px 18px rgb(43 33 24 / 12%); }
+      .nav-links.is-open { display: flex; }
       .nav-links a { font-size: 0.8rem; }
-      .nav-links .nav-order { padding: 8px 11px; }
+      .nav-links a { padding: 10px 6px; }
+      .nav-links .nav-order { margin-top: 5px; padding: 9px 11px; text-align: center; }
       .page-hero { padding: 58px 0 45px; }
       .hero-grid { grid-template-columns: 1fr; gap: 12px; }
       .page-hero h1 { font-size: clamp(3rem, 11vw, 4.6rem); }
@@ -125,8 +134,6 @@
     }
     @media (max-width: 430px) {
       .container { width: calc(100% - 28px); }
-      .nav-links { gap: 11px; }
-      .nav-links .nav-order { padding-inline: 9px; }
       .schedule-list li { grid-template-columns: 1fr; gap: 2px; }
       .cta-row { align-items: flex-start; flex-direction: column; }
       .footer-row { align-items: flex-start; flex-direction: column; }
@@ -140,7 +147,10 @@
         <span class="brand-mark" aria-hidden="true">🌿</span>
         <span>Crumb &amp; Cardamom</span>
       </a>
-      <div class="nav-links">
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="menu-icon" aria-hidden="true"></span><span>Menu</span>
+      </button>
+      <div class="nav-links" id="primary-nav">
         <a href="index.html">Home</a>
         <a href="about.html" aria-current="page">About</a>
         <a class="nav-order" href="index.html#order">Order now</a>
@@ -230,5 +240,24 @@
       </div>
     </div>
   </footer>
+  <script>
+    const menuToggle = document.querySelector("#menu-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+    function closeMenu() {
+      menuToggle.setAttribute("aria-expanded", "false");
+      primaryNav.classList.remove("is-open");
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+      primaryNav.classList.toggle("is-open", !isExpanded);
+    });
+    primaryNav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+  </script>
 </body>
 </html>
