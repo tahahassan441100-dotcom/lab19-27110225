@@ -115,6 +115,17 @@
     .menu-emoji { font-size: 1.55rem; line-height: 1; }
     .menu-card p { margin: 0; color: var(--green); font-size: 0.92rem; font-weight: 700; }
 
+    .calculator-section { padding: 38px 0; border-top: 1px solid rgb(62 107 79 / 17%); border-bottom: 1px solid rgb(62 107 79 / 17%); background: rgb(232 163 61 / 8%); }
+    .calculator-heading { margin-bottom: 20px; }
+    .calculator-heading h2 { margin: 10px 0 6px; font-size: 1.8rem; }
+    .calculator-heading p { margin: 0; font-size: 0.88rem; }
+    .calculator-layout { display: grid; grid-template-columns: minmax(210px, 1.2fr) minmax(115px, 0.55fr) minmax(150px, 0.8fr) auto; align-items: end; gap: 16px; }
+    .calculator-total { display: flex; min-height: 47px; flex-direction: column; justify-content: center; }
+    .calculator-total span { color: var(--brown); font-size: 0.76rem; font-weight: 600; }
+    .calculator-total output { color: var(--green); font-family: var(--serif); font-size: 1.3rem; font-weight: 700; }
+    .calculator-layout .button { white-space: nowrap; cursor: pointer; }
+    .calculator-layout .button:disabled { cursor: not-allowed; opacity: 0.6; transform: none; }
+
     .story-section { padding: 88px 0; }
     .story-band { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 35px; }
     .story-emojis { display: grid; width: 150px; aspect-ratio: 1; place-items: center; border: 1px solid rgb(62 107 79 / 28%); border-radius: 50%; background: rgb(232 163 61 / 14%); font-size: 4.3rem; }
@@ -169,6 +180,8 @@
       .menu-section, .order-section { padding: 62px 0; }
       .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .menu-card { min-height: 148px; padding: 16px; }
+      .calculator-layout { grid-template-columns: minmax(0, 1fr) minmax(110px, 0.55fr); }
+      .calculator-layout .button { justify-self: start; }
       .story-section { padding: 64px 0; }
       .story-band { grid-template-columns: 92px 1fr; gap: 20px; }
       .story-emojis { width: 88px; font-size: 2.8rem; }
@@ -180,6 +193,8 @@
       .nav-links .nav-order { padding-inline: 9px; }
       .menu-grid { grid-template-columns: 1fr; }
       .menu-card { min-height: 122px; }
+      .calculator-layout { grid-template-columns: 1fr; }
+      .calculator-layout .button { width: 100%; }
       .story-band { grid-template-columns: 1fr; gap: 18px; }
       .story-emojis { width: 74px; font-size: 2.3rem; }
       .order-form { grid-template-columns: 1fr; padding: 19px; }
@@ -267,6 +282,41 @@
       </div>
     </section>
 
+    <section class="calculator-section" aria-labelledby="calculator-title">
+      <div class="container">
+        <div class="calculator-heading">
+          <span class="eyebrow">A quick little sum</span>
+          <h2 id="calculator-title">Order calculator</h2>
+          <p>Pick a treat and quantity to see your total.</p>
+        </div>
+        <div class="calculator-layout">
+          <div class="field">
+            <label for="calculator-item">Choose a treat</label>
+            <select id="calculator-item">
+              <option value="" selected>Select an item</option>
+              <option value="Pistachio Cardamom Cake" data-price="2800">Pistachio Cardamom Cake (Rs. 2,800)</option>
+              <option value="Chocolate Fudge Cake" data-price="3200">Chocolate Fudge Cake (Rs. 3,200)</option>
+              <option value="Carrot Walnut Cake" data-price="2500">Carrot Walnut Cake (Rs. 2,500)</option>
+              <option value="Chocolate Chunk Cookies (box of 6)" data-price="900">Chocolate Chunk Cookies (box of 6) (Rs. 900)</option>
+              <option value="Almond Biscotti (box of 8)" data-price="1100">Almond Biscotti (box of 8) (Rs. 1,100)</option>
+              <option value="Cinnamon Rolls (box of 4)" data-price="1300">Cinnamon Rolls (box of 4) (Rs. 1,300)</option>
+              <option value="Mango Cheesecake Jar" data-price="450">Mango Cheesecake Jar (Rs. 450)</option>
+              <option value="Gulab Jamun Tiramisu Cup" data-price="550">Gulab Jamun Tiramisu Cup (Rs. 550)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="calculator-quantity">Quantity</label>
+            <input id="calculator-quantity" type="number" min="1" step="1" value="1" inputmode="numeric">
+          </div>
+          <div class="calculator-total">
+            <span>Order total</span>
+            <output id="calculator-total" for="calculator-item calculator-quantity" aria-live="polite">Select an item</output>
+          </div>
+          <button class="button" id="calculator-use" type="button" disabled>Use in order form <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </section>
+
     <section class="order-section" id="order" aria-labelledby="order-title">
       <div class="container order-layout">
         <div class="order-aside">
@@ -331,12 +381,50 @@
     const phoneInput = document.querySelector("#customer-phone");
     const deliveryDateInput = document.querySelector("#delivery-date");
     const formMessage = document.querySelector("#form-message");
+    const calculatorItem = document.querySelector("#calculator-item");
+    const calculatorQuantity = document.querySelector("#calculator-quantity");
+    const calculatorTotal = document.querySelector("#calculator-total");
+    const calculatorUse = document.querySelector("#calculator-use");
+    const orderItem = document.querySelector("#order-item");
+    const orderQuantity = document.querySelector("#order-quantity");
 
     const today = new Date();
     const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     deliveryDateInput.min = localToday;
+
+    function updateOrderTotal() {
+      const selectedOption = calculatorItem.selectedOptions[0];
+      const itemPrice = Number(selectedOption.dataset.price);
+      const quantity = Number(calculatorQuantity.value);
+
+      if (!selectedOption.value) {
+        calculatorTotal.textContent = "Select an item";
+        calculatorUse.disabled = true;
+        return;
+      }
+
+      if (!Number.isSafeInteger(quantity) || quantity < 1) {
+        calculatorTotal.textContent = "Enter a valid quantity";
+        calculatorUse.disabled = true;
+        return;
+      }
+
+      calculatorTotal.textContent = `Rs. ${new Intl.NumberFormat("en-US").format(itemPrice * quantity)}`;
+      calculatorUse.disabled = false;
+    }
+
+    calculatorItem.addEventListener("change", updateOrderTotal);
+    calculatorQuantity.addEventListener("input", updateOrderTotal);
+    calculatorUse.addEventListener("click", () => {
+      if (calculatorUse.disabled) return;
+
+      orderItem.value = calculatorItem.value;
+      orderQuantity.value = calculatorQuantity.value;
+      formMessage.textContent = "Your item and quantity are ready. Add your details below.";
+      orderForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
     phoneInput.addEventListener("input", () => {
       phoneInput.setCustomValidity(
